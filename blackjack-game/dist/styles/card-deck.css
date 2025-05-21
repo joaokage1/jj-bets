@@ -1,0 +1,99 @@
+/* Estilos para o baralho de cartas visível */
+.card-deck {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 170px;
+  background-color: #003300;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  border: 1px solid #006600;
+  z-index: 1;
+  overflow: visible;
+  transition: all 0.3s ease;
+}
+
+.card-deck::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background: repeating-linear-gradient(
+    45deg,
+    #004400,
+    #004400 10px,
+    #003800 10px,
+    #003800 20px
+  );
+  border-radius: 7px;
+  z-index: 2;
+}
+
+.card-deck::after {
+  content: "♠♣";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Arial', sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffcc00;
+  z-index: 3;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.card-counter {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #002200;
+  color: #ffffff;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #006600;
+  z-index: 4;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 767px) {
+  .card-deck {
+    right: 10px;
+    width: 80px;
+    height: 120px;
+  }
+  
+  .card-deck::after {
+    font-size: 24px;
+  }
+  
+  .card-counter {
+    bottom: -20px;
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+}
+
+/* Muito pequenas telas */
+@media (max-width: 480px) {
+  .card-deck {
+    right: 5px;
+    width: 60px;
+    height: 90px;
+  }
+  
+  .card-deck::after {
+    font-size: 18px;
+  }
+}
+
+.card.card-back {
+    background: repeating-linear-gradient(45deg, #004400, #004400 10px, #003800 10px, #003800 20px);
+}

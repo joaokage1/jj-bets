@@ -1,0 +1,32 @@
+/* Estilos para fallbacks de imagens SVG */
+.fallback-blackjack {
+    background-color: #006b55;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fallback-blackjack::before {
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffd166;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.fallback-coming-soon {
+    background-color: #2d6a4f;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fallback-coming-soon::before {
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffd166;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}

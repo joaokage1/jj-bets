@@ -1,0 +1,43 @@
+/* 
+ * Este arquivo CSS adiciona melhorias para a centralização de imagens
+ * e remove textos redundantes nos SVGs
+ */
+
+/* Melhorias na centralização das imagens */
+.game-thumbnail {
+    position: relative;
+    overflow: hidden;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Oculta textos específicos nos SVGs */
+svg text[y="188"],
+svg text[y="190"],
+svg text[y="38"],
+svg text[y="40"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Melhora a centralização para dispositivos específicos */
+@media (max-width: 1024px) {
+    .game-thumbnail {
+        height: 220px !important; /* Altura um pouco maior para telas médias */
+    }
+}
+
+@media (max-width: 768px) {
+    .game-thumbnail {
+        height: 200px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-card {
+        width: 90% !important; /* Assegura que o card não fique muito largo em telas pequenas */
+        margin: 0 auto !important;
+    }
+}

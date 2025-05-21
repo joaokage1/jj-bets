@@ -1,0 +1,245 @@
+:root {
+    --primary-color: #007f5f;
+    --secondary-color: #2d6a4f;
+    --background-color: #004d40;
+    --card-background: #006b55;
+    --text-color: #ffffff;
+    --accent-color: #ffd166;
+    --error-color: #ef476f;
+    --success-color: #06d6a0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 20px; /* Ajustado para margin horizontal em mobile */
+    margin: 0;
+}
+
+.menu-container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--accent-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.game-card {
+    background-color: var(--card-background);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.game-thumbnail {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background-color: #006b55;
+    background-color: var(--card-background);
+}
+
+.game-thumbnail::after {
+    content: attr(data-game-name);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    opacity: 0;
+}
+
+.game-thumbnail img:not([src]), 
+.game-thumbnail img[src=""], 
+.game-thumbnail img.error {
+    opacity: 0;
+}
+
+.game-thumbnail img.error + .game-overlay:before {
+    content: attr(data-game-name);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    z-index: 1;
+}
+
+.game-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.game-card:hover .game-thumbnail img {
+    transform: scale(1.1);
+}
+
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.game-card:hover .game-overlay {
+    opacity: 1;
+}
+
+.game-overlay span {
+    background-color: var(--accent-color);
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover .game-overlay span {
+    transform: translateY(0);
+}
+
+.game-info {
+    padding: 20px;
+}
+
+.game-info h2 {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.game-info p {
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.coming-soon {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.coming-soon .game-overlay {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.coming-soon .game-overlay span {
+    background-color: var(--error-color);
+    transform: translateY(0);
+}
+
+.coming-soon:hover {
+    transform: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.coming-soon:hover .game-thumbnail img {
+    transform: none;
+}
+
+/* Melhorar o fallback para imagens SVG */
+.game-thumbnail {
+    background-color: var(--card-background);
+}
+
+/* Ajuste específico para o placeholder de "Em Breve" */
+.coming-soon .game-thumbnail {
+    background-color: #005546;
+}
+
+/* Adicionar texto direto na imagem como fallback */
+.game-thumbnail img.error + .game-overlay:before {
+    content: attr(data-game-name);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 768px) {
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .game-card {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}

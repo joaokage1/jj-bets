@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#004d40">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">    <title>JJ Bets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="styles/menu.css">
+    <link rel="stylesheet" href="styles/svg-fixes.css">
+    <link rel="stylesheet" href="styles/fallbacks.css">
+    <link rel="stylesheet" href="styles/svg-browser-fixes.css">
+    <link rel="stylesheet" href="styles/image-centering.css">
+    <link rel="stylesheet" href="styles/mobile-fixes.css">
+    <script src="svgHelper.js" defer></script>
+    <script src="preloadSvg.js" defer></script>
+    <script src="inlineSvg.js" defer></script>
+</head>
+<body>
+    <div class="menu-container">
+        <header>
+            <h1>JJ Bets</h1>
+            <p class="subtitle">Escolha seu jogo favorito</p>
+        </header>        <div class="games-grid">            <div class="game-card" data-game="blackjack">
+                <div class="game-thumbnail" id="blackjack-thumbnail">
+                    <div class="image-wrapper">
+                        <!-- Carrega SVG com melhor suporte -->
+                        <img src="assets/blackjack-thumbnail.svg" alt="Blackjack" 
+                             onerror="this.classList.add('error'); this.closest('.game-thumbnail').classList.add('fallback-blackjack'); this.closest('.game-thumbnail').querySelector('.game-overlay').classList.add('fallback-active');">
+                    </div>
+                    <div class="game-overlay" data-game-name="Blackjack">
+                        <span>Jogar Agora</span>
+                    </div>
+                </div>
+                <div class="game-info">
+                    <h2>Blackjack</h2>
+                    <p>Jogue o clássico jogo de cartas e tente alcançar 21 pontos sem estourar!</p>
+                </div>
+            </div>
+              <div class="game-card coming-soon">
+                <div class="game-thumbnail" id="coming-soon-thumbnail">
+                    <div class="image-wrapper">
+                        <!-- Carrega SVG com melhor suporte -->
+                        <img src="assets/coming-soon.svg" alt="Em Breve" 
+                             onerror="this.classList.add('error'); this.closest('.game-thumbnail').classList.add('fallback-coming-soon'); this.closest('.game-thumbnail').querySelector('.game-overlay').classList.add('fallback-active');">
+                    </div>
+                    <div class="game-overlay" data-game-name="Em Breve">
+                        <span>Em Breve</span>
+                    </div>
+                </div>
+                <div class="game-info">
+                    <h2>Novo Jogo</h2>
+                    <p>Aguarde por novos jogos que serão adicionados em breve!</p>
+                </div>            </div>
+        </div>
+    </div>    <script src="menu.js" defer></script>
+    <script>
+        // Script para melhor manipulação de fallback de imagens
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.game-thumbnail img');
+            
+            // Função para carregar SVG inline
+            function loadSvgInline(url, imgElement) {
+                fetch(url)
+                    .then(response => response.text())
+                    .then(svgText => {
+                        if (svgText.includes('<svg')) {
+                            // Criar um blob do SVG para usar como URL de dados
+                            const svgBlob = new Blob([svgText], {type: 'image/svg+xml'});
+                            const url = URL.createObjectURL(svgBlob);
+                            
+                            // Aplicar à imagem
+                            imgElement.src = url;
+                            imgElement.classList.remove('error');
+                            console.log(`SVG carregado inline com sucesso: ${imgElement.alt}`);
+                            
+                            // Forçar exibição
+                            imgElement.style.opacity = '1';
+                            imgElement.style.visibility = 'visible';
+                            imgElement.style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao carregar SVG inline:', error);
+                        tryFallbackImage(imgElement);
+                    });
+            }
+            
+            // Para cada imagem
+            images.forEach(img => {
+                // Verificar se a imagem já foi carregada
+                if (img.complete) {
+                    // Se a imagem já carregou e tem erro, tentar inline SVG
+                    if (!img.naturalWidth) {
+                        loadSvgInline(img.src, img);
+                    }
+                } else {
+                    // Adicionar eventos para imagens que ainda não carregaram
+                    img.addEventListener('load', function() {
+                        img.classList.remove('error');
+                        console.log(`Imagem carregada normalmente: ${img.alt}`);
+                    });
+                    
+                    img.addEventListener('error', function() {
+                        console.log(`Erro ao carregar imagem: ${img.alt}`);
+                        loadSvgInline(img.src, img);
+                    });
+                }
+                
+                // Tentar carregar SVG inline de qualquer forma após 1 segundo
+                // Isso garante que a imagem será exibida mesmo se a detecção de erro falhar
+                setTimeout(() => {
+                    if (img.src.endsWith('.svg')) {
+                        loadSvgInline(img.src, img);
+                    }
+                }, 1000);
+            });
+            
+            function tryFallbackImage(img) {
+                // Tentar carregar versão JPG se a SVG falhar
+                if (img.src.endsWith('.svg')) {
+                    const jpgSrc = img.src.replace('.svg', '.jpg');
+                    img.src = jpgSrc;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

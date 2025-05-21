@@ -1,0 +1,98 @@
+/* filepath: c:\Users\j_vgo\Downloads\projs\blackjack-game\src\styles\image-centering.css */
+/**
+ * Estilos específicos para centralização perfeita de imagens
+ * Funciona em diferentes navegadores e tamanhos de tela
+ */
+
+/* Contêiner principal das miniaturas */
+.game-thumbnail {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+}
+
+/* Wrapper das imagens para centralização */
+.image-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 10px !important; /* Espaço interno para evitar tocar as bordas */
+}
+
+/* Imagens SVG para garantir centralização */
+.image-wrapper img {
+    position: relative !important;
+    max-width: 85% !important;
+    max-height: 85% !important;
+    width: auto !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: contain !important;
+}
+
+/* Centralização para SVGs injetados */
+.svg-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.svg-container svg {
+    max-width: 85% !important;
+    max-height: 85% !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* Ajustes para diferentes proporções de tela */
+@media (max-width: 768px) {
+    .image-wrapper {
+        padding: 5px !important;
+    }
+    
+    .image-wrapper img,
+    .svg-container svg {
+        max-width: 80% !important; /* Reduzido para melhor centralização em tablets */
+        max-height: 80% !important;
+    }
+    
+    /* Garante que o texto no SVG "Blackjack" não aparece */
+    #blackjack-thumbnail text:not([text-anchor="middle"]),
+    #coming-soon-thumbnail text:not([text-anchor="middle"]) {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 480px) {
+    .game-thumbnail {
+        height: 180px !important; /* Aumenta a altura para melhor visualização */
+    }
+    
+    .image-wrapper {
+        padding: 0 !important;
+    }
+    
+    .image-wrapper img,
+    .svg-container svg {
+        max-width: 75% !important; /* Mais compacto para telas pequenas */
+        max-height: 75% !important;
+    }
+    
+    /* Oculta qualquer texto que não esteja centralizado */
+    svg text {
+        opacity: 0.7; /* Reduz opacidade para minimizar problemas */
+    }
+    
+    /* Força o texto específico a ficar invisível */
+    text[x="30"],
+    text[x="15"] {
+        display: none !important;
+    }
+}

@@ -1,0 +1,73 @@
+/* filepath: c:\Users\j_vgo\Downloads\projs\blackjack-game\src\styles\svg-browser-fixes.css */
+/* Correções específicas para SVG em diferentes navegadores */
+
+/* Redefine a visibilidade das imagens para garantir que são visíveis */
+.game-thumbnail img {
+    opacity: 1 !important;
+    visibility: visible !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    z-index: 1;
+}
+
+/* Override para o Firefox que às vezes tem problemas com SVGs */
+@-moz-document url-prefix() {
+    .game-thumbnail img[src$=".svg"] {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+/* Correção para Edge/IE */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .game-thumbnail img[src$=".svg"] {
+        min-height: 100%;
+    }
+}
+
+/* Correção para Safari */
+@media not all and (min-resolution:.001dpcm) { 
+    @supports (-webkit-appearance:none) {
+        .game-thumbnail img[src$=".svg"] {
+            display: inline-block !important;
+        }
+    }
+}
+
+/* Wrapper para centralizar imagens */
+.image-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+}
+
+/* Correção geral para o overlay não esconder a imagem */
+.game-overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+/* Hack específico para SVG em contêineres - força a visibilidade e centralização */
+#blackjack-thumbnail img,
+#coming-soon-thumbnail img,
+#blackjack-thumbnail .svg-container,
+#coming-soon-thumbnail .svg-container {
+    display: block !important;
+    width: 85% !important; /* Menor para melhor centralização */
+    height: 85% !important;
+    margin: 0 auto !important; /* Centraliza horizontalmente */
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important; /* Centraliza perfeito */
+    object-position: center !important;
+}
+
+/* Remove texto "Blackjack" no canto esquerdo */
+#blackjack-thumbnail text:not([text-anchor="middle"]),
+.svg-container svg text:not([text-anchor="middle"]) {
+    display: none !important;
+}

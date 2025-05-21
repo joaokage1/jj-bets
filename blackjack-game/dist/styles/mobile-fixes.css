@@ -1,0 +1,70 @@
+/* filepath: c:\Users\j_vgo\Downloads\projs\blackjack-game\src\styles\mobile-fixes.css */
+/* Estilos específicos para melhorar apresentação em dispositivos móveis */
+
+/* Ajustes gerais para telas menores */
+@media screen and (max-width: 768px) {
+    /* Melhorar layout dos cards */
+    .game-card {
+        margin-bottom: 20px !important;
+    }
+
+    /* Lidar com texto lateral */
+    #blackjack-thumbnail text:not([text-anchor="middle"]),
+    #coming-soon-thumbnail text:not([text-anchor="middle"]) {
+        display: none !important;
+    }
+    
+    /* Forçar melhor centralização */
+    .image-wrapper, .svg-container {
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    /* Forçar exibição das imagens */
+    .image-wrapper img, .svg-container svg {
+        display: block !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* Ajustes para telas muito pequenas - modo retrato */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+    .game-thumbnail {
+        height: 160px !important;
+    }
+    
+    .image-wrapper img, .svg-container svg {
+        max-width: 70% !important;
+        max-height: 70% !important;
+    }
+    
+    /* Esconder todas as partes não essenciais do SVG */
+    svg circle[cx="40"], svg circle[cx="75"], 
+    svg text[x="40"], svg text[x="75"],
+    svg text[x="15"], svg text:not([text-anchor="middle"]) {
+        display: none !important;
+    }
+}
+
+/* Ajustes para modo paisagem */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .game-thumbnail {
+        height: 120px !important;
+    }
+    
+    .game-info {
+        padding: 10px !important;
+    }
+    
+    .game-info h2 {
+        font-size: 1.2rem !important;
+        margin-bottom: 5px !important;
+    }
+    
+    .game-info p {
+        font-size: 0.9rem !important;
+    }
+}

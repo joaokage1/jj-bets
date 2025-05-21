@@ -1,0 +1,72 @@
+/* Melhorias para SVG */
+.game-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+    display: block; /* Garante que a imagem é um bloco de exibição */
+    max-width: 100%; /* Garante que a imagem não ultrapassa o contêiner */
+}
+
+/* Garantir que as imagens SVG sejam exibidas corretamente e centralizadas */
+.game-thumbnail {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+.game-thumbnail img {
+    object-fit: contain;
+    background-color: transparent;
+    max-width: 90% !important;
+    max-height: 90% !important;
+}
+
+/* Estilo para overlay quando a imagem não carrega */
+.game-overlay.fallback-active {
+    opacity: 1 !important;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Estilo para imagens com erro */
+.game-thumbnail img.error {
+    opacity: 0.1;
+}
+
+/* Garante que as imagens SVG sejam sempre exibidas */
+.game-thumbnail img:not(.error) {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+/* Estilo de fallback mais visível */
+.game-thumbnail img.error + .game-overlay:before {
+    content: attr(data-game-name);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--accent-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    z-index: 5;
+}
+
+/* Melhorar a visibilidade em dispositivos móveis */
+@media (max-width: 480px) {
+    .game-thumbnail {
+        height: 150px; /* Reduz altura em telas pequenas */
+    }
+    
+    .game-card {
+        max-width: 100%;
+    }
+    
+    .game-thumbnail img.error + .game-overlay:before {
+        font-size: 1.5rem;
+    }
+}
